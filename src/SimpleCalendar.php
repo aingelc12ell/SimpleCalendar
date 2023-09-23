@@ -1,6 +1,6 @@
 <?php
 
-namespace donatj;
+namespace ACCESS;
 
 /**
  * Simple Calendar
@@ -40,6 +40,10 @@ class SimpleCalendar {
 	private $dailyHtml = [];
 	private $offset = 0;
 
+	private $Settings = [
+		'displayMonth' => true,
+	];
+
 	/**
 	 * @param \DateTimeInterface|int|string|null       $calendarDate
 	 * @param \DateTimeInterface|false|int|string|null $today
@@ -50,6 +54,13 @@ class SimpleCalendar {
 	public function __construct( $calendarDate = null, $today = null ) {
 		$this->setDate($calendarDate);
 		$this->setToday($today);
+	}
+
+	public function set($setting,$value){
+		$this->Settings[$setting] = $value;
+	}
+	public function get($setting){
+		return $this->Settings[$setting];
 	}
 
 	/**
@@ -230,10 +241,17 @@ class SimpleCalendar {
 
 		$weekDayIndex = date('N', mktime(0, 0, 1, $now['mon'], 1, $now['year'])) - $this->offset;
 		$daysInMonth  = cal_days_in_month(CAL_GREGORIAN, $now['mon'], $now['year']);
+		$thismonth = date("M Y",$this->now->getTimestamp());
 
 		$out = <<<TAG
 <table cellpadding="0" cellspacing="0" class="{$this->classes['calendar']}"><thead><tr>
 TAG;
+		$out .= $this->get('displayMonth')
+			? <<<TAG
+<th colspan="{count($daysOfWeek)}">{$thismonth}</th>
+</tr><tr>
+TAG : '';
+
 
 		foreach( $daysOfWeek as $dayName ) {
 			$out .= "<th>{$dayName}</th>";

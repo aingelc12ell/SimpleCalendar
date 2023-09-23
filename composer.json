@@ -1,9 +1,9 @@
 {
-	"name"       : "donatj/simplecalendar",
+	"name"       : "aingelc12ell/simplecalendar",
 	"type"       : "library",
-	"description": "A light, easy to use calendar rendering library",
+	"description": "A light, easy to use calendar rendering library, forked from donatj/simplecalendar",
 	"keywords"   : ["calendar"],
-	"homepage"   : "https://donatstudios.com/SimpleCalendar",
+	"homepage"   : "http://accessph.net/simplecalendar",
 	"license"    : "MIT",
 	"require"    : {
 		"php"         : ">=5.5.0",
@@ -19,11 +19,17 @@
 			"email"   : "donatj@gmail.com",
 			"homepage": "http://donatstudios.com",
 			"role"    : "Developer"
-		}
+		},
+        {
+            "name"    : "Aingel Sy",
+            "email"   : "aingel@accessph.net",
+            "homepage": "http://accessph.net",
+            "role"    : "Developer"
+        }
 	],
 	"autoload"   : {
 		"psr-4": {
-			"donatj\\": "src/"
+			"aingelc12ell\\": "src/"
 		}
 	}
 }
