@@ -72,6 +72,9 @@ class SimpleCalendar {
 	public function setDate( $date = null ) {
 		$this->now = $this->parseDate($date) ?: new \DateTimeImmutable();
 	}
+	public function getDate(){
+		return $this->now;
+	}
 
 	/**
 	 * @param \DateTimeInterface|int|string|null $date
@@ -133,6 +136,10 @@ class SimpleCalendar {
 		}
 	}
 
+	public function toDay(){
+		return $this->today;
+	}
+
 	/**
 	 * @param string[]|null $weekDayNames
 	 */
@@ -188,6 +195,10 @@ class SimpleCalendar {
 	 */
 	public function clearDailyHtml() { $this->dailyHtml = []; }
 
+	public function getDailyHtml(){
+		return $this->dailyHtml;
+	}
+
 	/**
 	 * Sets the first day of the week
 	 *
@@ -241,14 +252,15 @@ class SimpleCalendar {
 
 		$weekDayIndex = date('N', mktime(0, 0, 1, $now['mon'], 1, $now['year'])) - $this->offset;
 		$daysInMonth  = cal_days_in_month(CAL_GREGORIAN, $now['mon'], $now['year']);
-		$thismonth = date("M Y",$this->now->getTimestamp());
+		$thismonth = date("F Y",$this->now->getTimestamp());
+
 
 		$out = <<<TAG
 <table cellpadding="0" cellspacing="0" class="{$this->classes['calendar']}"><thead><tr>
 TAG;
 		$out .= $this->get('displayMonth')
 			? <<<TAG
-<th colspan="{count($daysOfWeek)}">{$thismonth}</th>
+<th colspan="7" class="monthheader">{$thismonth}</th>
 </tr><tr>
 TAG : '';
 
@@ -285,7 +297,7 @@ TAG
 					&& $today['year'] == $date->format('Y');
 			}
 
-			$out .= '<td' . ($isToday ? ' class="' . $this->classes['today'] . '"' : '') . '>';
+			$out .= '<td class="' . ($isToday ? $this->classes['today'] . ' ' : '') . 'calendarday">';
 
 			$out .= sprintf('<time datetime="%s">%d</time>', $date->format('Y-m-d'), $i);
 
