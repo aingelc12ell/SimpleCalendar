@@ -1,11 +1,11 @@
 <mddoc>
 
-	<docpage target="README.md" autoloader="psr4" autoloader-root-namespace="donatj" autoloader-root="src">
+	<docpage target="README.md" autoloader="psr4" autoloader-root-namespace="ACCESS" autoloader-root="src">
 
 		<section title="Simple Calendar">
 			<badge-poser type="version"/>
 			<badge-poser type="license"/>
-			<badge-travis name="donatj/SimpleCalendar"/>
+			<badge-travis name="ACCESS/SimpleCalendar"/>
 
 			<text>A very simple, easy to use PHP calendar rendering class.</text>
 			<section title="Requirements">
