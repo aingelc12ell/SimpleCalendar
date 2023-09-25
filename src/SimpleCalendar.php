@@ -134,9 +134,10 @@ class SimpleCalendar {
 		} else {
 			$this->today = $this->parseDate($today);
 		}
+		$this->set('Today',$this->today);
 	}
 
-	public function toDay(){
+	public function getToday(){
 		return $this->today;
 	}
 
@@ -180,14 +181,15 @@ class SimpleCalendar {
 
 		$working = (new \DateTimeImmutable())->setTimestamp($start->getTimestamp());
 		do {
-			$tDate = getdate($working->getTimestamp());
-
-			$this->dailyHtml[$tDate['year']][$tDate['mon']][$tDate['mday']][$htmlCount] = $html;
-
+			$this->addDayHtml($working,$html);
 			$working = $working->add(new \DateInterval('P1D'));
 		} while( $working->getTimestamp() < $end->getTimestamp() + 1 );
 
-		$htmlCount++;
+	}
+	
+	public function addDayHtml($date,$html){
+		$tDate = getdate($this->parseDate($date)->getTimestamp());
+		$this->dailyHtml[$tDate['year']][$tDate['mon']][$tDate['mday']][] = $html;
 	}
 
 	/**
@@ -207,9 +209,11 @@ class SimpleCalendar {
 	public function setStartOfWeek( $offset ) {
 		if( is_int($offset) ) {
 			$this->offset = $offset % 7;
-		} elseif( $this->weekDayNames !== null && ($weekOffset = array_search($offset, $this->weekDayNames, true)) !== false ) {
+		} 
+		elseif( $this->weekDayNames !== null && ($weekOffset = array_search($offset, $this->weekDayNames, true)) !== false ) {
 			$this->offset = $weekOffset;
-		} else {
+		} 
+		else {
 			$weekTime = strtotime($offset);
 			if( $weekTime === 0 ) {
 				throw new \InvalidArgumentException('invalid offset');
@@ -231,7 +235,6 @@ class SimpleCalendar {
 		if( $echo ) {
 			echo $out;
 		}
-
 		return $out;
 	}
 
@@ -255,35 +258,26 @@ class SimpleCalendar {
 		$thismonth = date("F Y",$this->now->getTimestamp());
 
 
-		$out = <<<TAG
-<table cellpadding="0" cellspacing="0" class="{$this->classes['calendar']}"><thead><tr>
-TAG;
+		$out = '<table cellpadding="0" cellspacing="0" class="' . $this->classes['calendar'] .'"><thead><tr>';
+		
+		# month header
 		$out .= $this->get('displayMonth')
-			? <<<TAG
-<th colspan="7" class="monthheader">{$thismonth}</th>
-</tr><tr>
-TAG : '';
+			? '<th colspan="7" class="monthheader">' . $thismonth . '</th>'
+				. '</tr><tr>'
+			: '';
 
-
+		# week header
 		foreach( $daysOfWeek as $dayName ) {
 			$out .= "<th>{$dayName}</th>";
 		}
+		$out .= '</tr></thead><tbody><tr>';
 
-		$out .= <<<'TAG'
-</tr></thead>
-<tbody>
-<tr>
-TAG;
-
+		# days
 		$weekDayIndex = ($weekDayIndex + 7) % 7;
-
 		if( $weekDayIndex === 7 ) {
 			$weekDayIndex = 0;
 		} else {
-			$out .= str_repeat(<<<TAG
-<td class="{$this->classes['leading_day']}">&nbsp;</td>
-TAG
-				, $weekDayIndex);
+			$out .= str_repeat('<td class="' . $this->classes['leading_day'] . '">&nbsp;</td>' , $weekDayIndex);
 		}
 
 		$count = $weekDayIndex + 1;
@@ -317,17 +311,18 @@ TAG
 			$out .= '</td>';
 
 			if( $count > 6 ) {
-				$out   .= "</tr>\n" . ($i < $daysInMonth ? '<tr>' : '');
+				$out   .= "</tr>" . ($i < $daysInMonth ? '<tr>' : '');
 				$count = 0;
 			}
 			$count++;
 		}
 
 		if( $count !== 1 ) {
-			$out .= str_repeat('<td class="' . $this->classes['trailing_day'] . '">&nbsp;</td>', 8 - $count) . '</tr>';
+			$out .= str_repeat('<td class="' . $this->classes['trailing_day'] . '">&nbsp;</td>', 8 - $count) 
+				. '</tr>';
 		}
 
-		$out .= "\n</tbody></table>\n";
+		$out .= '</tbody></table>';
 
 		return $out;
 	}
