@@ -128,7 +128,7 @@ class SimpleCalendar {
 	/**
 	 * @param string[]|null $weekDayNames
 	 */
-	public function setWeekDayNames( ?array $weekDayNames = null ) : void {
+	public function setWeekDayNames( ?array $weekDayNames = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ] ) : void {
 		if( is_array($weekDayNames) && count($weekDayNames) !== 7 ) {
 			throw new \InvalidArgumentException('week array must have exactly 7 values');
 		}
