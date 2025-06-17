@@ -1,5 +1,5 @@
 {
-	"name"       : "donatj/simplecalendar",
+	"name"       : "aingelc12ell/simplecalendar",
 	"type"       : "library",
 	"description": "A light, easy to use calendar rendering library",
 	"keywords"   : ["calendar"],
@@ -24,11 +24,17 @@
 			"email"   : "donatj@gmail.com",
 			"homepage": "https://donatstudios.com",
 			"role"    : "Developer"
+		},
+		{
+			"name"    : "Aingel Carbonell",
+			"email"   : "aingelcarbonell@gmail.com",
+			"homepage": "https://accessph.net",
+			"role"    : "Developer"
 		}
 	],
 	"autoload"   : {
 		"psr-4": {
-			"donatj\\": "src/"
+			"ACCESS\\": "src/"
 		}
 	},
 	"config": {

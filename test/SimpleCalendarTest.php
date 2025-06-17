@@ -1,6 +1,6 @@
 <?php
 
-use donatj\SimpleCalendar;
+use ACCESS\SimpleCalendar;
 use PHPUnit\Framework\TestCase;
 
 class SimpleCalendarTest extends TestCase {

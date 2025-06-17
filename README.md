@@ -5,7 +5,7 @@
 [![ci.yml](https://github.com/donatj/SimpleCalendar/actions/workflows/ci.yml/badge.svg?)](https://github.com/donatj/SimpleCalendar/actions/workflows/ci.yml)
 
 
-A very simple, easy to use PHP calendar rendering class.
+A very simple, easy to use PHP calendar rendering class forked from [donatj/SimpleCalendar](https://github.com/donatj/SimpleCalendar).
 
 ## Requirements
 
@@ -17,7 +17,7 @@ A very simple, easy to use PHP calendar rendering class.
 Install the latest version with:
 
 ```bash
-composer require 'donatj/simplecalendar'
+composer require 'aingelc12ell/simplecalendar'
 ```
 
 ## Examples
@@ -29,7 +29,7 @@ require '../vendor/autoload.php';
 
 echo '<link rel="stylesheet" href="../src/css/SimpleCalendar.css" />';
 
-$calendar = new donatj\SimpleCalendar('June 2010');
+$calendar = new ACCESS\SimpleCalendar('June 2010');
 
 echo $calendar->render();
 
@@ -41,7 +41,7 @@ require '../vendor/autoload.php';
 
 echo '<link rel="stylesheet" href="../src/css/SimpleCalendar.css" />';
 
-$calendar = new donatj\SimpleCalendar;
+$calendar = new ACCESS\SimpleCalendar;
 
 $calendar->setStartOfWeek('Sunday');
 $calendar->addDailyHtml('Sample Event', 'today', 'tomorrow');
@@ -55,7 +55,7 @@ echo $calendar->render();
 
 ## Documentation
 
-### Class: \donatj\SimpleCalendar
+### Class: \ACCESS\SimpleCalendar
 
 Simple Calendar
 
